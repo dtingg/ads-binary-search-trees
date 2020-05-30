@@ -79,12 +79,33 @@ class BinarySearchTree {
   delete(key) {
     let target_node = this.search(key);
 
-    if (target_node) {
-      this._count -= 1;
-      return target_node.value;
-    } else {
+    if (target_node === undefined) {
       return undefined;
     }
+
+    let parent = target_node.parent;
+
+    let side;
+
+    if (parent !== null) {
+      if (parent.left && parent.left === target_node) {
+        side = "left";
+      } else {
+        side = "right";
+      }
+    }
+
+    // If the deleted node has no children
+    if (parent) {
+      if (side == "left") {
+        parent.left = null;
+      } else if (side == "right") {
+        parent.right = null;
+      }    
+    }
+
+    this._count -= 1;
+    return target_node.value; 
   }
 
   count() {
