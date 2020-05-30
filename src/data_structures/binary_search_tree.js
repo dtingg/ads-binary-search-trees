@@ -1,5 +1,5 @@
 class BSTNode {
-  constructor({ key, value, parent, left, right }) {
+  constructor({ key, value, parent, left = null, right = null }) {
     this.key = key;
     this.value = value;
     this.parent = parent;
@@ -15,11 +15,27 @@ class BinarySearchTree {
     this._root = undefined;
   }
 
+  search(key) {
+    let node = this._root;
+
+    while (node) {
+      if (key < node.key) {
+        node = node.left;
+      } else if (key > node.key) {
+        node = node.right;
+      } else if (key == node.key) {
+        return node;
+      } else {
+        return undefined;
+      }
+    }
+  }
+
   insert(key, value = true) {
     let current_node = this._root;
 
     if (current_node === undefined) {
-      const new_node = new this.Node({ key: key, value: value, parent: null, left: null, right: null });
+      const new_node = new this.Node({ key: key, value: value, parent: null });
       this._count += 1;
       this._root = new_node;
     }
@@ -29,7 +45,7 @@ class BinarySearchTree {
         if (current_node.left) {
           current_node = current_node.left;
         } else {
-          const new_node = new this.Node({ key: key, value: value, parent: current_node, left: null, right: null});
+          const new_node = new this.Node({ key: key, value: value, parent: current_node});
           current_node.left = new_node;
           this._count += 1;
           return;
@@ -38,7 +54,7 @@ class BinarySearchTree {
         if (current_node.right) {
           current_node = current_node.right;
         } else {
-          const new_node = new this.Node({ key: key, value: value, parent: current_node, left: null, right: null });
+          const new_node = new this.Node({ key: key, value: value, parent: current_node });
           current_node.right = new_node;
           this._count += 1;
           return;
@@ -51,21 +67,23 @@ class BinarySearchTree {
   }
 
   lookup(key) {
-    let node = this._root;
+    let node = this.search(key)
 
-    while (node) {
-      if (key < node.key) {
-        node = node.left;
-      } else if (key > node.key) {
-        node = node.right;
-      } else { // equal
-        return node.value;
-      }
+    if (node) {
+      return node.value
+    } else {
+      return node;
     }
   }
 
   delete(key) {
-    // TODO (tests first!)
+    let target_node = this.search(key);
+
+    if (target_node) {
+      this._count -= 1;
+    }
+
+    return target_node.value;
   }
 
   count() {

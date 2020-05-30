@@ -163,30 +163,85 @@ dataStructures.forEach(TargetDS => {
         // of how insert works to do this? How can you check your work?
 
         it('can remove the record with the smallest key', () => {
-          // TODO:
           // Insert several records
+          bst.insert("c");
+          bst.insert("d");
+          bst.insert("a");
+          bst.insert("b");
+          bst.insert("e");
+
           // Remove the record with the smallest key
+          bst.delete("a");
+
           // Ensure that looking up that key returns undefined
+          expect(bst.lookup("a")).toBe(undefined);
+          expect(bst.lookup("b")).toBe(true);
         });
 
         it('can remove the record with the largest key', () => {
+          bst.insert("c");
+          bst.insert("d");
+          bst.insert("a");
+          bst.insert("b");
+          bst.insert("e");
 
+          bst.delete("e");
+
+          expect(bst.lookup("e")).toBe(undefined);
+          expect(bst.lookup("a")).toBe(true);
         });
 
         it('can remove the root', () => {
+          bst.insert("b");
+          bst.insert("a");
+          bst.insert("c");
 
+          bst.delete("b");
+
+          expect(bst.lookup("b")).toBe(undefined);
+          expect(bst.lookup("c")).toBe(true);
+
+          let cb = jest.fn();
+          bst.forEach(cb);
+  
+          expect(cb.mock.calls.length).toBe(2);
         });
 
         it('can remove a node with no children', () => {
+          bst.insert(5);
+          bst.insert(2);
+          bst.insert(4);
+          bst.insert(8);
+          bst.insert(7);
 
+          bst.delete(7);
+
+          expect(bst.lookup(7)).toBe(undefined);
         });
 
         it('can remove a node with only a left child', () => {
+          bst.insert(5);
+          bst.insert(2);
+          bst.insert(4);
+          bst.insert(8);
+          bst.insert(7);
 
+          bst.delete(8);
+          expect(bst.lookup(8)).toBe(undefined);
+          expect(bst.lookup(7)).toBe(true);
         });
 
         it('can remove a node with only a right child', () => {
+          bst.insert(5);
+          bst.insert(2);
+          bst.insert(4);
+          bst.insert(8);
+          bst.insert(7);
 
+          bst.delete(2);
+
+          expect(bst.lookup(2)).toBe(undefined);
+          expect(bst.lookup(4)).toBe(true);
         });
 
         it('can remove a node with both children, where the successor is the node\'s right child', () => {
