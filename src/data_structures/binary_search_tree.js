@@ -81,9 +81,10 @@ class BinarySearchTree {
 
     if (target_node) {
       this._count -= 1;
+      return target_node.value;
+    } else {
+      return undefined;
     }
-
-    return target_node.value;
   }
 
   count() {

@@ -208,11 +208,11 @@ dataStructures.forEach(TargetDS => {
         });
 
         it('can remove a node with no children', () => {
-          bst.insert(5);
-          bst.insert(2);
-          bst.insert(4);
-          bst.insert(8);
-          bst.insert(7);
+          const numbers = [ 5, 2, 4, 8, 7 ];
+
+          numbers.forEach((num) => {
+            bst.insert(num);
+          })
 
           bst.delete(7);
 
@@ -220,23 +220,24 @@ dataStructures.forEach(TargetDS => {
         });
 
         it('can remove a node with only a left child', () => {
-          bst.insert(5);
-          bst.insert(2);
-          bst.insert(4);
-          bst.insert(8);
-          bst.insert(7);
+          const numbers = [ 5, 2, 4, 8, 7 ];
+
+          numbers.forEach((num) => {
+            bst.insert(num);
+          })
 
           bst.delete(8);
+
           expect(bst.lookup(8)).toBe(undefined);
           expect(bst.lookup(7)).toBe(true);
         });
 
         it('can remove a node with only a right child', () => {
-          bst.insert(5);
-          bst.insert(2);
-          bst.insert(4);
-          bst.insert(8);
-          bst.insert(7);
+          const numbers = [ 5, 2, 4, 8, 7 ];
+
+          numbers.forEach((num) => {
+            bst.insert(num);
+          })
 
           bst.delete(2);
 
@@ -245,11 +246,33 @@ dataStructures.forEach(TargetDS => {
         });
 
         it('can remove a node with both children, where the successor is the node\'s right child', () => {
+          const numbers = [5, 3, 4, 2];
+          // 3 has two children. 4 is the right child and successor.
 
+          numbers.forEach((num) => {
+            bst.insert(num);
+          })
+
+          bst.delete(3);
+
+          expect(bst.lookup(3)).toBe(undefined);
+          expect(bst.lookup(2)).toBe(true);
+          expect(bst.lookup(4)).toBe(true);
         });
 
         it('can remove a node with both children, where the successor is not the node\'s right child', () => {
+          const numbers = [ 8, 5, 2, 7, 6 ]; 
+          // 5 has two children. Right child is 7 and successor is 6.
 
+          numbers.forEach((num) => {
+            bst.insert(num);
+          })
+
+          bst.delete(5);
+
+          expect(bst.lookup(5)).toBe(undefined);
+          expect(bst.lookup(7)).toBe(true);
+          expect(bst.lookup(6)).toBe(true);
         });
       });
     });
