@@ -17,6 +17,7 @@ class BinarySearchTree {
 
   insert(key, value = true) {
     // TODO
+    this._count += 1;
   }
 
   lookup(key) {
