@@ -124,21 +124,27 @@ dataStructures.forEach(TargetDS => {
       });
 
       it('omits the removed record from iteration results', () => {
-        const records = [ "one", "two", "three", "four", "five"];
+        const records = [ 
+          [1, "one"], 
+          [2, "two"], 
+          [3, "three"],
+          [4, "four"],
+          [5, "five"]
+        ];
 
         records.forEach((item) => {
-          bst.insert(item);
+          bst.insert(item[0], item[1]);
         });
 
-        bst.delete("two");
+        bst.delete(2);
 
         let cb = jest.fn();
         bst.forEach(cb);
 
-        expect(cb.mock.calls[0].key).toBe("one");
-        expect(cb.mock.calls[1].key).toBe("three");
-        expect(cb.mock.calls[2].key).toBe("four");
-        expect(cb.mock.calls[3].key).toBe("five");
+        expect(cb.mock.calls[0][0].value).toBe("one");
+        expect(cb.mock.calls[1][0].value).toBe("three");
+        expect(cb.mock.calls[2][0].value).toBe("four");
+        expect(cb.mock.calls[3][0].value).toBe("five");
       });
 
       it('can remove every element in a tree', () => {

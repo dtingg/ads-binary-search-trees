@@ -113,7 +113,7 @@ class BinarySearchTree {
       }
     // If the deleted node has two children 
     } else if (target_node.left && target_node.right) {
-      successor = this.find_successor(target_node.right)
+      const successor = this.find_successor(target_node.right)
       this.delete(successor.key);
 
       if (child == "left") {
@@ -134,13 +134,12 @@ class BinarySearchTree {
       }
 
       if (child == "left") {
-        parent.left.key = temp.key;
-        parent.left.value = temp.value;
+        parent.left = temp;
+        temp.parent = parent;
       } else {
-        parent.right.key = temp.key;
-        parent.right.value = temp.value;
-      }
-      
+        parent.right = temp;
+        temp.parent = parent;
+      } 
     }
     this._count -= 1;
     return deleted_value; 
