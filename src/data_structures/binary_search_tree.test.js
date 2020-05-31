@@ -177,7 +177,7 @@ dataStructures.forEach(TargetDS => {
           // Ensure that looking up that key returns undefined
           expect(bst.lookup(1)).toBe(undefined);
           expect(bst.lookup(2)).toBe(true);
-          expect(bst.search(2).parent.value).toBe(3);
+          expect(bst.search(2).parent.key).toBe(3);
         });
 
         it('can remove the record with the largest key', () => {
@@ -231,7 +231,7 @@ dataStructures.forEach(TargetDS => {
 
           expect(bst.lookup(8)).toBe(undefined);
           expect(bst.lookup(7)).toBe(true);
-          expect(bst.search(7).parent.value).toBe(5);
+          expect(bst.search(7).parent.key).toBe(5);
         });
 
         it('can remove a node with only a right child', () => {
@@ -245,7 +245,7 @@ dataStructures.forEach(TargetDS => {
 
           expect(bst.lookup(2)).toBe(undefined);
           expect(bst.lookup(4)).toBe(true);
-          expect(bst.search(4).parent.value).toBe(5);
+          expect(bst.search(4).parent.key).toBe(5);
         });
 
         it('can remove a node with both children, where the successor is the node\'s right child', () => {
@@ -261,7 +261,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(3)).toBe(undefined);
           expect(bst.lookup(2)).toBe(true);
           expect(bst.lookup(4)).toBe(true);
-          expect(bst.search(2).parent.value).toBe(4);
+          expect(bst.search(2).parent.key).toBe(4);
         });
 
         it('can remove a node with both children, where the successor is not the node\'s right child', () => {
@@ -277,7 +277,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(5)).toBe(undefined);
           expect(bst.lookup(7)).toBe(true);
           expect(bst.lookup(6)).toBe(true);
-          expect(bst.search(7).parent.value).toBe(6);
+          expect(bst.search(7).parent.key).toBe(6);
         });
       });
     });

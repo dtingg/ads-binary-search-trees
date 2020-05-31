@@ -76,36 +76,74 @@ class BinarySearchTree {
     }
   }
 
+  find_successor(current_node) {
+    if (!current_node.right) {
+      return current_node
+    }
+
+    this.find_successor(current_node.left);
+  }
+
   delete(key) {
     let target_node = this.search(key);
 
-    if (target_node === undefined) {
-      return undefined;
+    if (!target_node) {
+      return target_node;
     }
 
-    let parent = target_node.parent;
+    let deleted_value = target_node.value;
 
-    let side;
+    const parent = target_node.parent;
+    let child;
 
-    if (parent !== null) {
+    if (parent) {
       if (parent.left && parent.left === target_node) {
-        side = "left";
+        child = "left";
       } else {
-        side = "right";
+        child = "right";
       }
     }
 
     // If the deleted node has no children
-    if (parent) {
-      if (side == "left") {
+    if (!target_node.left && !target_node.right) {
+      if (child == "left") {
         parent.left = null;
-      } else if (side == "right") {
+      } else {
         parent.right = null;
-      }    
-    }
+      }
+    // If the deleted node has two children 
+    } else if (target_node.left && target_node.right) {
+      successor = this.find_successor(target_node.right)
+      this.delete(successor.key);
 
+      if (child == "left") {
+        parent.left.key = successor.key;
+        parent.left.value = successor.value;
+      } else {
+        parent.right.key = successor.key;
+        parent.right.value = successor.value;
+      }
+    // If the deleted node only has one child
+    } else {
+      let temp;
+
+      if (target_node.left) {
+        temp = target_node.left;
+      } else {
+        temp = target_node.right;
+      }
+
+      if (child == "left") {
+        parent.left.key = temp.key;
+        parent.left.value = temp.value;
+      } else {
+        parent.right.key = temp.key;
+        parent.right.value = temp.value;
+      }
+      
+    }
     this._count -= 1;
-    return target_node.value; 
+    return deleted_value; 
   }
 
   count() {
