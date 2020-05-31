@@ -106,7 +106,9 @@ class BinarySearchTree {
 
     // If the deleted node has no children
     if (!target_node.left && !target_node.right) {
-      if (child == "left") {
+      if (!parent) {
+        this._root = undefined; 
+      } else if (child == "left") {
         parent.left = null;
       } else {
         parent.right = null;
@@ -116,13 +118,24 @@ class BinarySearchTree {
       const successor = this.find_successor(target_node.right)
       this.delete(successor.key);
 
-      if (child == "left") {
-        parent.left.key = successor.key;
-        parent.left.value = successor.value;
+      if (!parent) {
+        if (child == "left") {
+          this._root.key = successor.key;
+          this._root.value = successor.value;
+        } else {
+          this._root.key = successor.key;
+          this._root.value = successor.value;
+        }
       } else {
-        parent.right.key = successor.key;
-        parent.right.value = successor.value;
+        if (child == "left") {
+          parent.left.key = successor.key;
+          parent.left.value = successor.value;
+        } else {
+          parent.right.key = successor.key;
+          parent.right.value = successor.value;
+        }
       }
+
     // If the deleted node only has one child
     } else {
       let temp;
