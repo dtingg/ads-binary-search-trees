@@ -141,6 +141,7 @@ class BinarySearchTree {
         temp.parent = parent;
       } 
     }
+
     this._count -= 1;
     return deleted_value; 
   }

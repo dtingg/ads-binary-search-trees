@@ -107,7 +107,7 @@ dataStructures.forEach(TargetDS => {
         bst.insert(1, "one");
         bst.insert(2, "two");
 
-        expect(bst.delete(1)).toBe("one");
+        expect(bst.delete(2)).toBe("two");
       });
 
       it('returns undefined if the record was not found', () => {
