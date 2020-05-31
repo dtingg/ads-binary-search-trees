@@ -148,7 +148,7 @@ dataStructures.forEach(TargetDS => {
       });
 
       it('can remove every element in a tree', () => {
-        const records = [ "one", "two", "three"];
+        const records = [ 3, 1, 2, 5, 4, 7];
 
         records.forEach((item) => {
           bst.insert(item);
@@ -160,6 +160,10 @@ dataStructures.forEach(TargetDS => {
 
         let cb = jest.fn();
         bst.forEach(cb);
+
+
+        console.log(cb.mock.calls)
+
 
         expect(cb.mock.calls.length).toBe(0);
       });

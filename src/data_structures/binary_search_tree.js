@@ -81,7 +81,13 @@ class BinarySearchTree {
       return current_node
     }
 
-    this.find_successor(current_node.left);
+    current_node = current_node.right
+
+    while (current_node.left) {
+      current_node = current_node.left;
+    }
+
+    return current_node;
   }
 
   delete(key) {
@@ -115,17 +121,13 @@ class BinarySearchTree {
       }
     // If the deleted node has two children 
     } else if (target_node.left && target_node.right) {
-      const successor = this.find_successor(target_node.right)
+      const successor = this.find_successor(target_node)
       this.delete(successor.key);
 
       if (!parent) {
-        if (child == "left") {
-          this._root.key = successor.key;
-          this._root.value = successor.value;
-        } else {
-          this._root.key = successor.key;
-          this._root.value = successor.value;
-        }
+        target_node.key = successor.key;
+        target_node.value = successor.value;
+        this._root = target_node;
       } else {
         if (child == "left") {
           parent.left.key = successor.key;
@@ -135,7 +137,6 @@ class BinarySearchTree {
           parent.right.value = successor.value;
         }
       }
-
     // If the deleted node only has one child
     } else {
       let temp;
@@ -146,13 +147,17 @@ class BinarySearchTree {
         temp = target_node.right;
       }
 
-      if (child == "left") {
-        parent.left = temp;
-        temp.parent = parent;
+      if (!parent) {
+        this._root = temp;
       } else {
-        parent.right = temp;
-        temp.parent = parent;
-      } 
+        if (child == "left") {
+          parent.left = temp;
+          temp.parent = parent;
+        } else {
+          parent.right = temp;
+          temp.parent = parent;
+        } 
+      }
     }
 
     this._count -= 1;
