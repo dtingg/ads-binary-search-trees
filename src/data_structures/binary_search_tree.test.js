@@ -156,22 +156,12 @@ dataStructures.forEach(TargetDS => {
           bst.insert(item);
         });
 
-        // records.forEach((item) => {
-        //   bst.delete(item);
-        // });
-
-        bst.delete(3);
-        bst.delete(1);
-        bst.delete(2);
-        bst.delete(5);
-        // bst.delete(4);
-        // bst.delete(7);
+        records.forEach((item) => {
+          bst.delete(item);
+        });
 
         let cb = jest.fn();
         bst.forEach(cb);
-
-        console.log(cb.mock.calls)
-
 
         expect(cb.mock.calls.length).toBe(0);
         expect(bst.count()).toBe(0);

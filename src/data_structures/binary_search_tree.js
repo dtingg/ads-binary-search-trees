@@ -151,6 +151,7 @@ class BinarySearchTree {
 
       if (!parent) {
         this._root = temp;
+        temp.parent = null;
       } else {
         if (child == "left") {
           parent.left = temp;
