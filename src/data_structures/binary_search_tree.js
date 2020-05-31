@@ -123,11 +123,13 @@ class BinarySearchTree {
     } else if (target_node.left && target_node.right) {
       const successor = this.find_successor(target_node)
       this.delete(successor.key);
+      this._count += 1;
 
       if (!parent) {
         target_node.key = successor.key;
         target_node.value = successor.value;
         this._root = target_node;
+        target_node.parent = null;
       } else {
         if (child == "left") {
           parent.left.key = successor.key;

@@ -145,6 +145,8 @@ dataStructures.forEach(TargetDS => {
         expect(cb.mock.calls[1][0].value).toBe("three");
         expect(cb.mock.calls[2][0].value).toBe("four");
         expect(cb.mock.calls[3][0].value).toBe("five");
+
+        expect(bst.count()).toBe(4);
       });
 
       it('can remove every element in a tree', () => {
@@ -154,18 +156,25 @@ dataStructures.forEach(TargetDS => {
           bst.insert(item);
         });
 
-        records.forEach((item) => {
-          bst.delete(item);
-        });
+        // records.forEach((item) => {
+        //   bst.delete(item);
+        // });
+
+        bst.delete(3);
+        bst.delete(1);
+        bst.delete(2);
+        bst.delete(5);
+        // bst.delete(4);
+        // bst.delete(7);
 
         let cb = jest.fn();
         bst.forEach(cb);
-
 
         console.log(cb.mock.calls)
 
 
         expect(cb.mock.calls.length).toBe(0);
+        expect(bst.count()).toBe(0);
       });
 
       describe('scenarios', () => {
@@ -188,6 +197,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(1)).toBe(undefined);
           expect(bst.lookup(2)).toBe(true);
           expect(bst.search(2).parent.key).toBe(3);
+          expect(bst.count()).toBe(4);
         });
 
         it('can remove the record with the largest key', () => {
@@ -200,6 +210,7 @@ dataStructures.forEach(TargetDS => {
           bst.delete(5);
 
           expect(bst.lookup(5)).toBe(undefined);
+          expect(bst.count()).toBe(4);
         });
 
         it('can remove the root', () => {
@@ -216,6 +227,7 @@ dataStructures.forEach(TargetDS => {
           bst.forEach(cb);
   
           expect(cb.mock.calls.length).toBe(2);
+          expect(bst.count()).toBe(2);
         });
 
         it('can remove a node with no children', () => {
@@ -228,6 +240,7 @@ dataStructures.forEach(TargetDS => {
           bst.delete(7);
 
           expect(bst.lookup(7)).toBe(undefined);
+          expect(bst.count()).toBe(4);
         });
 
         it('can remove a node with only a left child', () => {
@@ -242,6 +255,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(8)).toBe(undefined);
           expect(bst.lookup(7)).toBe(true);
           expect(bst.search(7).parent.key).toBe(5);
+          expect(bst.count()).toBe(4);
         });
 
         it('can remove a node with only a right child', () => {
@@ -256,6 +270,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(2)).toBe(undefined);
           expect(bst.lookup(4)).toBe(true);
           expect(bst.search(4).parent.key).toBe(5);
+          expect(bst.count()).toBe(4);
         });
 
         it('can remove a node with both children, where the successor is the node\'s right child', () => {
@@ -272,6 +287,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(2)).toBe(true);
           expect(bst.lookup(4)).toBe(true);
           expect(bst.search(2).parent.key).toBe(4);
+          expect(bst.count()).toBe(3);
         });
 
         it('can remove a node with both children, where the successor is not the node\'s right child', () => {
@@ -288,6 +304,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(7)).toBe(true);
           expect(bst.lookup(6)).toBe(true);
           expect(bst.search(7).parent.key).toBe(6);
+          expect(bst.count()).toBe(4);
         });
       });
     });
